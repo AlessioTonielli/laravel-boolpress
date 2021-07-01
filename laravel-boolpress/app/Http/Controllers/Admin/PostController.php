@@ -79,7 +79,7 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
         return view("admin.edit", [
-            "id" => $post->id
+            "post" => $post
         ]);
     }
 
