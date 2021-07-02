@@ -7,6 +7,8 @@
     <div style="text-align: center">
         <h2>{{ $post->title }}</h2>
         <p>{{ $post->content }}</p>
+            <a href="{{ route('guest.show', ['id' => $post->id]) }}">Visualizza Post Completo</a>
+
     </div>
 @endforeach
 @endsection

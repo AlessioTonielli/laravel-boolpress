@@ -24,11 +24,11 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 @guest
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('guest.home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @else
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('admin.home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
                 @endguest

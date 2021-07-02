@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -15,14 +16,16 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Post $post)
+    public function index(Request $request, Post $post, Category $category)
     {
         $user = $post->user;
+        $category = $post->category;
         $data = [
             'posts' => Post::orderBy("created_at", "DESC")
                 ->where("user_id", $request->user()->id)
                 ->get(),
-                "user" => $user
+            "user" => $user,
+            "category" => $category,
         ];
 
 
@@ -36,7 +39,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view("admin.create");
+        $categories = Category::all();
+
+        return view('admin.create', ["categories" => $categories]);
     }
 
     /**
@@ -52,6 +57,7 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($newPostData);
         $newPost->user_id = $request->user()->id;
+        // $newPost->category_id = $request->category()->id;
         $newPost->save();
 
         return redirect()->route('admin.index');
@@ -66,6 +72,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
+        $category = $post->category;
+
         $user = $post->user;
         if (is_null($post)) {
             abort(404);
@@ -73,7 +81,8 @@ class PostController extends Controller
 
         return view('admin.show', [
             "post" => $post,
-            "user" => $user
+            "user" => $user,
+            "categories" => $category,
         ]);
     }
 
@@ -85,8 +94,11 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories = Category::all();
         $post = Post::findOrFail($id);
-        return view("admin.edit", [
+
+        return view('admin.edit', [
+            "categories" => $categories,
             "post" => $post
         ]);
     }

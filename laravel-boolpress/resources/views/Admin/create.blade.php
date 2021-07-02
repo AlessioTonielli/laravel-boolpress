@@ -18,7 +18,17 @@
     <textarea name="content" id="content" cols="30" rows="10"></textarea>
 </div>
 
+<select name="category_id" id="">
 
+<option value="">-- Seleziona La Categoria</option>
+@foreach($categories as $category)
+
+<option value="{{ $category->id }}">{{ $category->name }}</option>
+    
+@endforeach
+
+</select>
+<br>
 <input type="submit" value="Crea post">
 
 </form>

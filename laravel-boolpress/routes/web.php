@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Guest\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,14 +15,22 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function(){
+    if(auth()->check()){
+        return redirect()->route('admin.home');
+    } else {
+        return redirect()->route('guest.home');
 
-Route::namespace('Guest')
+    }
+});
+
+Route::prefix('guest')
+    ->namespace('Guest')
     ->name("guest.")
     ->group(function () {
-Route::get('/', "HomeController@index")->name("home");
-Route::get('/home', "HomeController@index")->name("index");
-Route::get('/show/{id}', "HomeController@show")->name("show");
-
+        Route::get('', "HomeController@home")->name("home");
+        Route::get('index', "HomeController@index")->name("index");
+        Route::get('show/{id}', "HomeController@show")->name("show");
     });
 
 Auth::routes();
@@ -31,19 +40,19 @@ Route::prefix('admin')
     ->middleware('auth')
     ->name("admin.")
     ->group(function () {
+        Route::get('', "HomeController@home")->name("home");
 
-        Route::get('/index', 'PostController@index')->name('index');
+        Route::get('index', 'PostController@index')->name('index');
 
-        Route::get("/post/create", "PostController@create")->name("create");
-        
-        Route::post("/post", "PostController@store")->name("store");
+        Route::get("post/create", "PostController@create")->name("create");
 
-        Route::get('/post/{id}', "PostController@show")->name("show");
+        Route::post("post", "PostController@store")->name("store");
 
-        Route::get('/post/{id}/edit', "PostController@edit")->name("edit");
-        
-        Route::match(["PUT", "PATCH"], "/post/{id}/update", "PostController@update")->name("update");
-        
-        Route::delete("/post/{id}", "PostController@destroy")->name("destroy");
+        Route::get('post/{id}', "PostController@show")->name("show");
 
+        Route::get('post/{id}/edit', "PostController@edit")->name("edit");
+
+        Route::match(["PUT", "PATCH"], "post/{id}/update", "PostController@update")->name("update");
+
+        Route::delete("post/{id}", "PostController@destroy")->name("destroy");
     });

@@ -2,9 +2,10 @@
 
 @section('content')
 <div style="text-align: center">
-    <h1>{{ $post->title }}</h1>
-    <h5>{{ $post->user->name }}</h5>
-    <p>{{ $post->content }}</p>
+    <h1>Titolo: {{ $post->title }}</h1>
+    <h5>Autore: {{ $post->user->name }}</h5>
+    <p>Contenuto: {{ $post->content }}</p>
+    <h4>Categoria: {{ $post->category ? $post->category->name : '-' }}</h4>
     <a href="{{ route('admin.index') }}" class="btn btn-primary">Torna Indietro</a>
 
     <a href="{{ route('admin.edit', $post->id) }}" class="btn btn-primary">Modifica</a>
