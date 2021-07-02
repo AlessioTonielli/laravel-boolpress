@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Guest;
 use App\Post;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,16 +25,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // return view('home');
         $post = Post::all();
-        return view("Admin.index", [
+        return view("admin.index", [
             "posts" => $post
         ]);
 
-        // $data = [
-        //     'posts' => Post::all()
-        // ];
-
-        // return view("admin.home", $data);
     }
+
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if(is_null($post)){
+            abort(404);
+        }
+
+        return view('guest.show' , [
+            "post" => $post
+        ]);
+    }
+
+    
+
+    
 }

@@ -1,23 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+{{-- <div style="text-align: center">
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
+
+    @foreach($posts as $post)
+
+    <div style="text-align: center; border: 1px solid black">
+        <h2>{{ $post->title }}</h2>
+<p>{{ $post->content }}</p>
+<a href="{{ route('admin.show', ['id' => $post->id]) }}">Visualizza Post Completo</a>
+
 </div>
+@endforeach
+
+</div> --}}
+
+@guest
+<a href="{{ route('guest.index') }}">
+    vai ai post
+</a>
+@else
+<a href="{{ route('admin.index') }}">
+    vai ai post
+</a>
+@endguest
+
 @endsection

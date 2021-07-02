@@ -9,17 +9,24 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, Post $post)
     {
-        $post = Post::all();
-        return view("admin.index", [
-            "posts" => $post
-        ]);
+        $user = $post->user;
+        $data = [
+            'posts' => Post::orderBy("created_at", "DESC")
+                ->where("user_id", $request->user()->id)
+                ->get(),
+                "user" => $user
+        ];
+
+
+        return view("admin.index", $data);
     }
 
     /**
@@ -30,7 +37,6 @@ class PostController extends Controller
     public function create()
     {
         return view("admin.create");
-        
     }
 
     /**
@@ -44,10 +50,11 @@ class PostController extends Controller
         $newPostData = $request->all();
 
         $newPost = new Post();
-        $newPost-> fill($newPostData);
-        $newPost-> save();
+        $newPost->fill($newPostData);
+        $newPost->user_id = $request->user()->id;
+        $newPost->save();
 
-        return redirect()-> route('admin.index');
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -59,13 +66,14 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-
-        if(is_null($post)){
+        $user = $post->user;
+        if (is_null($post)) {
             abort(404);
         }
 
-        return view('admin.show' , [
-            "post" => $post
+        return view('admin.show', [
+            "post" => $post,
+            "user" => $user
         ]);
     }
 
@@ -96,8 +104,8 @@ class PostController extends Controller
         $formData = $request->all();
 
         $request->validate([
-            "title"=> "max:255",
-            
+            "title" => "max:255",
+
         ]);
 
 
