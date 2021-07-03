@@ -41,6 +41,8 @@ Route::prefix('admin')
     ->name("admin.")
     ->group(function () {
         Route::get('', "HomeController@home")->name("home");
+        
+        Route::get('private', "HomeController@dashboard")->name("dashboard");
 
         Route::get('index', 'PostController@index')->name('index');
 

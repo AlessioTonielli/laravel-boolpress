@@ -2,37 +2,51 @@
 
 
 @section('content')
-<div style="text-align: center">
+<div class="container">
+    <div class="row">
 
+        @if(url()->previous() == route('admin.dashboard'))
+        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Torna Indietro</a>
+        @elseif(url()->previous() == route('admin.index'))
+        <a href="{{ route('admin.index') }}" class="btn btn-primary">Torna Indietro</a>
+        @endif
+    </div>
 
-    <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn btn-primary">Torna indietro</a>
+    <div class="row justify-content-center">
+        <form action="{{ route('admin.update', ['id' => $post->id])  }}" method="post">
 
-    <form action="{{ route('admin.update', ['id' => $post->id])  }}" method="post">
+            @csrf
+            @method('PUT')
+            <div class="form-group">
 
-        @csrf
-        @method('PUT')
+                <label for="title">Titolo</label>
+                <input type="text" id="title" name="title" value="{{ $post->title }}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="content">Contenuto</label><br>
+                <textarea name="content" id="content" cols="30" rows="10"" class=" form-control" requied>{{ $post->content }}</textarea>
+            </div>
+                <div class="form-group">
+                    <label for="category">Categoria</label>
+                    <select name="category_id" id="category" class="form-control">
 
-        <label for="title">Titolo</label><br>
-        <input type="text" id="title" name="title" value="{{ $post->title }}"><br>
+                        <option value="">-- Seleziona La Categoria</option>
+                        @foreach($categories as $category)
 
-        <label for="content">Contenuto</label><br>
-        <textarea name="content" id="content" cols="30" rows="10"">{{ $post->content }}</textarea><br>
+                        <option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
 
-<select name=" category_id" id="">
+                        @endforeach
 
-<option value="">-- Seleziona La Categoria</option>
-@foreach($categories as $category)
+                    </select>
+                </div>
 
-<option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
-    
-@endforeach
+                <div class="form-group">
+                    <input type="submit" value="Modifica" class="form-control btn btn-success">
+                </div>
 
-</select>
+        </form>
+    </div>
 
-<br>
-    <input type="submit" value="Modifica" class="btn btn-primary">
-
-</form>
 </div>
 
 @endsection
