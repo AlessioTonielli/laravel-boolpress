@@ -15,22 +15,16 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function(){
-    if(auth()->check()){
-        return redirect()->route('admin.home');
-    } else {
-        return redirect()->route('guest.home');
 
-    }
-});
+Route::get('/', 'Guest\HomeController@home')->name('home');
 
 Route::prefix('guest')
     ->namespace('Guest')
     ->name("guest.")
     ->group(function () {
-        Route::get('', "HomeController@home")->name("home");
-        Route::get('index', "HomeController@index")->name("index");
-        Route::get('show/{id}', "HomeController@show")->name("show");
+        // Route::get('', "HomeController@home")->name("home");
+        Route::get('index', "PostController@index")->name("index");
+        Route::get('show/{id}', "PostController@show")->name("show");
     });
 
 Auth::routes();
@@ -40,9 +34,9 @@ Route::prefix('admin')
     ->middleware('auth')
     ->name("admin.")
     ->group(function () {
-        Route::get('', "HomeController@home")->name("home");
-        
-        Route::get('private', "HomeController@dashboard")->name("dashboard");
+        // Route::get('', "HomeController@home")->name("home");
+
+        Route::get('private', "HomeController@private")->name("private");
 
         Route::get('index', 'PostController@index')->name('index');
 

@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row">
 
-        @if(url()->previous() == route('admin.dashboard'))
-        <a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Torna Indietro</a>
+        @if(url()->previous() == route('admin.private'))
+        <a href="{{ route('admin.private') }}" class="btn btn-primary">Torna Indietro</a>
         @elseif(url()->previous() == route('admin.index'))
         <a href="{{ route('admin.index') }}" class="btn btn-primary">Torna Indietro</a>
         @endif

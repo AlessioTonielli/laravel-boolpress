@@ -2,13 +2,17 @@
 
 @section('content')
 <div class="container">
+    <div class="row mb-3">
+        <a href="{{ route('admin.create') }}" class="btn btn-primary text-capitalize">Scrivi un post</a>
+
+    </div>
     <div class="row">
 
         <div class="col-4">
             <h3 class="text-capitalize">i tuoi dati:</h3>
             <ul>
                 <li>
-                    Name: <span class="text-capitalize">{{Auth::user()->name}}</span>
+                    Nome: <span class="text-capitalize">{{Auth::user()->name}}</span>
                 </li>
                 <li>
                     Email: {{Auth::user()->email}}
@@ -17,7 +21,6 @@
                     Registrato in data: {{Auth::user()->created_at}}
                 </li>
             </ul>
-            <a href="{{ route('admin.create') }}" class="btn btn-primary">Scrivi un post</a>
         </div>
 
         <div class="col-8">
@@ -44,10 +47,10 @@
             @endif
             @endforeach
             @else
-            
+
             <h4 class="text-capitalize">Non hai nessun post</h4>
             @endif
-            
+
         </div>
 
 

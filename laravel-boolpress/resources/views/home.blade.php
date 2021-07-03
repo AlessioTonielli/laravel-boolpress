@@ -2,29 +2,20 @@
 
 @section('content')
 
-{{-- <div style="text-align: center">
+<div class="container">
 
+    <div class="row justify-content-center">
+        <h1>Benvenuto in BoolBlog</h1>
+    </div>
 
-    @foreach($posts as $post)
-
-    <div style="text-align: center; border: 1px solid black">
-        <h2>{{ $post->title }}</h2>
-<p>{{ $post->content }}</p>
-<a href="{{ route('admin.show', ['id' => $post->id]) }}">Visualizza Post Completo</a>
-
+    <div class="row justify-content-center">
+        @guest
+        <a href="{{ route('guest.index') }}" class="text-uppercase">vai ai post</a>
+        @else
+        <a href="{{ route('admin.index') }}" class="text-uppercase">vai ai post</a>
+        @endguest
+    </div>
 </div>
-@endforeach
 
-</div> --}}
-
-@guest
-<a href="{{ route('guest.index') }}">
-    vai ai post
-</a>
-@else
-<a href="{{ route('admin.index') }}">
-    vai ai post
-</a>
-@endguest
 
 @endsection

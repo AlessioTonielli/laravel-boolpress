@@ -22,15 +22,13 @@ class HomeController extends Controller
         return view('admin.home');
     }
 
-    public function dashboard(Request $request)
+    public function private(Request $request)
     {
-        // $id_user = Auth::user()->id;
         $data = [
             'posts' => Post::orderBy("created_at", "DESC")
                 ->where("user_id", $request->user()->id)
                 ->get(),
-            
         ];
-        return view('admin.dashboard', $data);
+        return view('admin.private', $data);
     }
 }
