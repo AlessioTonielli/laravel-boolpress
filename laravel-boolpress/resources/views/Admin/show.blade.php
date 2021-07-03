@@ -4,16 +4,21 @@
 <div class="container">
     <div class="row mb-4">
         @if(url()->previous() == route('admin.private'))
-        <a href="{{ route('admin.private') }}" class="btn btn-primary">Torna Indietro</a>
+        <a href="{{ route('admin.private') }}" class="btn text-capitalize btn-primary">Torna alla tua area privata</a>
         @elseif(url()->previous() == route('admin.index'))
-        <a href="{{ route('admin.index') }}" class="btn btn-primary">Torna Indietro</a>
-        @elseif(url()->previous() == route('guest.index'))
-        <a href="{{ route('guest.index') }}" class="btn btn-primary">Torna Indietro</a>
+        <a href="{{ route('admin.index') }}" class="btn text-capitalize btn-primary">Torna ai post</a>
+        @else
+        @guest
+        <a href="{{ route('guest.index') }}" class="btn text-capitalize btn-primary">Torna ai post</a>
+        @else
+        <a href="{{ route('admin.index') }}" class="btn text-capitalize btn-primary">Torna ai post</a>
+
+        @endif
         @endif
     </div>
 
     <div class="row mb-2">
-        <div class="card">
+        <div class="col-12">
             <ul class="list-group">
                 <li class="list-group-item text-capitalize">Titolo: {{ $post->title }}</li>
                 <li class="list-group-item text-capitalize">Autore: {{ $post->user->name }}</li>
@@ -25,12 +30,12 @@
     </div>
 
     <div class="row mb-4">
-        <a href="{{ route('admin.edit', $post->id) }}" class="btn btn-warning ml-3">Modifica</a>
+        <a href="{{ route('admin.edit', $post->id) }}" class="btn text-capitalize btn-warning mr-3">Modifica</a>
 
         <form action="{{ route('admin.destroy', ['id' => $post->id]) }}" method="post">
             @csrf
             @method('DELETE')
-            <input type="submit" value="Elimina" class="btn btn-danger ml-3">
+            <input type="submit" value="Elimina" class="btn text-capitalize btn-danger mr-3">
         </form>
     </div>
 

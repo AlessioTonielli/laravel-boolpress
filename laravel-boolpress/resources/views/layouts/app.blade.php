@@ -38,8 +38,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto justify-content-center">
+                        @guest
+                        <li class="nav-item {{ url()->current() == route('home') ? 'active' : ''}}"><a href="{{ route('home') }}" class="text-uppercase nav-link">home</a></li>
+                        <li class="nav-item {{ url()->current() == route('guest.index') ? 'active' : ''}}"><a href="{{ route('guest.index') }}" class="text-uppercase nav-link">post</a></li>
+                        @else
+                        <li class="nav-item {{ url()->current() == route('home') ? 'active' : ''}}"><a href="{{ route('home') }}" class="text-uppercase nav-link">home</a></li>
+                        <li class="nav-item {{ url()->current() == route('admin.index') ? 'active' : ''}}"><a href="{{ route('admin.index') }}" class="text-uppercase nav-link">post</a></li>
 
+                        @endguest
+                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->

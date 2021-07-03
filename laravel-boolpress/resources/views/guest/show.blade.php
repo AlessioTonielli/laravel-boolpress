@@ -14,7 +14,7 @@
     </div>
 
     <div class="row mb-2">
-        <div class="card">
+        <div class="col-12">
             <ul class="list-group">
                 <li class="list-group-item text-capitalize">Titolo: {{ $post->title }}</li>
                 <li class="list-group-item text-capitalize">Autore: {{ $post->user->name }}</li>

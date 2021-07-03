@@ -6,9 +6,11 @@
     <div class="row">
 
         @if(url()->previous() == route('admin.private'))
-        <a href="{{ route('admin.private') }}" class="btn btn-primary">Torna Indietro</a>
+        <a href="{{ route('admin.private') }}" class="btn text-capitalize btn-primary">Torna alla tua area privata</a>
         @elseif(url()->previous() == route('admin.index'))
-        <a href="{{ route('admin.index') }}" class="btn btn-primary">Torna Indietro</a>
+        <a href="{{ route('admin.index') }}" class="btn text-capitalize btn-primary">Torna Indietro</a>
+        @elseif(url()->previous() == route('admin.show', ['id' => $post->id]))
+        <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn text-capitalize btn-primary">Torna Indietro</a>
         @endif
     </div>
 
@@ -41,7 +43,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" value="Modifica" class="form-control btn btn-success">
+                    <input type="submit" value="Modifica" class="form-control btn btn-success text-capitalize">
                 </div>
 
         </form>

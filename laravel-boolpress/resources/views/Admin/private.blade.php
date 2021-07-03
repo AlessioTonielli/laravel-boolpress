@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row mb-3">
-        <a href="{{ route('admin.create') }}" class="btn btn-primary text-capitalize">Scrivi un post</a>
+        <a href="{{ route('admin.create') }}" class="btn text-capitalize btn-primary">Scrivi un post</a>
 
     </div>
     <div class="row">
@@ -34,13 +34,13 @@
                 <p>{{ $post->content }}</p>
 
                 <div class="row mb-3">
-                    <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn btn-primary ml-3">Visualizza Post Completo</a>
-                    <a href="{{ route('admin.edit', $post->id) }}" class="btn btn-warning ml-3">Modifica</a>
+                    <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn text-capitalize btn-primary ml-3">Visualizza Post Completo</a>
+                    <a href="{{ route('admin.edit', $post->id) }}" class="btn text-capitalize btn-warning ml-3">Modifica</a>
 
                     <form action="{{ route('admin.destroy', ['id' => $post->id]) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <input type="submit" value="Elimina" class="btn btn-danger ml-3">
+                        <input type="submit" value="Elimina" class="btn text-capitalize btn-danger ml-3">
                     </form>
                 </div>
             </div>

@@ -13,7 +13,8 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        $categories = ['Politica', 'Scuole', 'Film', 'videogiochi', 'Serie Tv', ];
+        Category::truncate();
+        $categories = ['politica', 'istruzione', 'film', 'videogiochi', 'serie tv', 'sport', 'motori', 'hobby', 'cibo'];
 
         foreach ($categories as $category){
             $new_category_object = new Category();

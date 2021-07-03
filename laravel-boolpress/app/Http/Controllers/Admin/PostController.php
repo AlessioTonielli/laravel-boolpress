@@ -28,7 +28,6 @@ class PostController extends Controller
             "category" => $category,
         ];
 
-
         return view("admin.index", $data);
     }
 
@@ -120,7 +119,6 @@ class PostController extends Controller
 
         ]);
 
-
         $post->update($formData);
 
         return redirect()->route("admin.index");
@@ -137,7 +135,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $post->delete();
-
+        
         return redirect()->route("admin.index");
     }
 }

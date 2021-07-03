@@ -8,7 +8,7 @@
     @foreach($posts as $post)
     <div class="row mb-3">
 
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 col-12">
             <h3 class="text-capitalize">{{ $post->title }}</h3>
             <p>Testo: {{ $post->content }}</p>
             <div class="row">

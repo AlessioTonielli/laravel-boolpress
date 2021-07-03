@@ -5,13 +5,13 @@
 
 <div class="container">
     <div class="row mb-3">
-        <a href="{{ route('admin.create') }}" class="btn btn-primary">Scrivi un post</a>
+        <a href="{{ route('admin.create') }}" class="btn text-capitalize btn-primary">Scrivi un post</a>
     </div>
 
     @foreach($posts as $post)
     <div class="row mb-3">
 
-        <div class="card p-3 mb-3">
+        <div class="card p-3 mb-3 col-12">
             <h3 class="text-capitalize">{{ $post->title }}</h3>
             <p>Testo: {{ $post->content }}</p>
             <div class="row">
@@ -23,10 +23,8 @@
                 </div>
             </div>
             <div class="row pl-3 pr-3">
-                <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn btn-primary">Visualizza Post Completo</a>
+                <a href="{{ route('admin.show', ['id' => $post->id]) }}" class="btn text-capitalize btn-primary">Visualizza Post Completo</a>
             </div>
-            {{-- <a href="{{ route('admin.destroy', ['id' => $post->id]) }}">Cancella Post</a>
-            <a href="{{ route('admin.edit', ['id' => $post->id]) }}">Modifica Post</a> --}}
         </div>
     </div>
 
