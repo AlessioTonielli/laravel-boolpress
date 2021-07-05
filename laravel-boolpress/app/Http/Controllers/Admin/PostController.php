@@ -92,12 +92,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $categories = Category::all();
         $post = Post::findOrFail($id);
+        $categories = Category::all();
+        $tags = Tag::all();
 
         return view('admin.edit', [
             "categories" => $categories,
-            "post" => $post
+            "post" => $post,
+            "tags" => $tags
         ]);
     }
 
@@ -117,6 +119,7 @@ class PostController extends Controller
             "title" => "max:255",
 
         ]);
+        $post->tags()->sync($formData['tags']);
 
         $post->update($formData);
 

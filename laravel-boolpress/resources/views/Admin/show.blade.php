@@ -23,6 +23,15 @@
                 <li class="list-group-item text-capitalize">Titolo: {{ $post->title }}</li>
                 <li class="list-group-item text-capitalize">Autore: {{ $post->user->name }}</li>
                 <li class="list-group-item text-capitalize">Categoria: {{ $post->category ? $post->category->name : '-' }}</li>
+                <li class="list-group-item text-capitalize">Tags: 
+                @foreach($post->tags as $tag)
+                <span class="badge badge-primary">{{ $tag->name }}</span>
+                    
+                @endforeach
+                
+                
+                </li>
+
                 <li class="list-group-item text-capitalize">creato in data: {{ $post->created_at }}</li>
                 <li class="list-group-item">Testo:<br>{{ $post->content }}</li>
             </ul>

@@ -45,10 +45,8 @@
                         @else
                         <li class="nav-item {{ url()->current() == route('home') ? 'active' : ''}}"><a href="{{ route('home') }}" class="text-uppercase nav-link">home</a></li>
                         <li class="nav-item {{ url()->current() == route('admin.index') ? 'active' : ''}}"><a href="{{ route('admin.index') }}" class="text-uppercase nav-link">post</a></li>
-                        <li class="nav-item "><a href="{{ route('admin.tag.index') }}" class="text-uppercase nav-link">tag</a></li>
-                        {{-- {{ route('admin.index') }} --}}
-                        {{-- {{ url()->current() == route('admin.tag.index') ? 'active' : ''}} --}}
-
+                        <li class="nav-item {{ url()->current() == route('admin.tag.index') ? 'active' : ''}}"><a href="{{ route('admin.tag.index') }}" class="text-uppercase nav-link">tag</a></li>
+                       
                         @endguest
                         
                     </ul>
