@@ -35,11 +35,22 @@
                     <option value="">-- Seleziona La Categoria</option>
                     @foreach($categories as $category)
 
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}" class="text-capitalize">{{ $category->name }}</option>
 
                     @endforeach
 
                 </select>
+                <div class="form-control">
+                
+                @foreach($tags as $tag)
+                <label for="tag">
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}" >
+                {{ $tag->name }}
+                </label>
+                    
+                @endforeach
+                
+                </div>
             </div>
 
             <div class="form-group">

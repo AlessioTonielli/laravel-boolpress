@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,16 +17,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Post $post, Category $category)
+    public function index(Request $request)
     {
-        $user = $post->user;
-        $category = $post->category;
         $data = [
             'posts' => Post::orderBy("created_at", "DESC")
                 ->where("user_id", $request->user()->id)
                 ->get(),
-            "user" => $user,
-            "category" => $category,
         ];
 
         return view("admin.index", $data);
@@ -39,8 +36,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
-        return view('admin.create', ["categories" => $categories]);
+        return view('admin.create', ["categories" => $categories, "tags" => $tags]);
     }
 
     /**
@@ -56,8 +54,9 @@ class PostController extends Controller
         $newPost = new Post();
         $newPost->fill($newPostData);
         $newPost->user_id = $request->user()->id;
-        // $newPost->category_id = $request->category()->id;
         $newPost->save();
+
+        $newPost->tags()->sync($newPostData['tags']);
 
         return redirect()->route('admin.index');
     }

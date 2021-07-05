@@ -29,12 +29,16 @@ Route::prefix('guest')
 
 Auth::routes();
 
+
+
+
 Route::prefix('admin')
     ->namespace('Admin')
     ->middleware('auth')
     ->name("admin.")
     ->group(function () {
         // Route::get('', "HomeController@home")->name("home");
+        Route::get('tag', "TagController@index")->name("tag.index");
 
         Route::get('private', "HomeController@private")->name("private");
 
