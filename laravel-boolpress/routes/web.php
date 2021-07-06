@@ -29,7 +29,12 @@ Route::prefix('guest')
 
 Auth::routes();
 
-
+Route::prefix('api')
+    ->namespace('Api')
+    -> name('api.')
+    -> group(function () {
+        Route::get('post', 'Api\PostController@index')->name('index');
+    });
 
 
 Route::prefix('admin')

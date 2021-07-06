@@ -7,6 +7,7 @@
 
 
     @foreach($tags as $tag)
+
     <div class="row mb-3">
         <ul class="list-group">
             <li class="list-group-item text-capitalize">Titolo: {{ $tag->name }}</li>
