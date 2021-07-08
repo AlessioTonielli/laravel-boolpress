@@ -50,16 +50,28 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+
+            "cover_url" => "nullable",
+            "tags" => "nullable"
+
+        ]);
         $newPostData = $request->all();
 
         $newPost = new Post();
-        $storageImage = Storage::put("postCover", $newPostData["cover_url"]);
-        $newPostData["cover_url"] = $storageImage;
+
+        if (isset($newPostData["cover_url"])) {
+            $storageImage = Storage::put("postCover", $newPostData["cover_url"]);
+            $newPostData["cover_url"] = $storageImage;
+        }
+
         $newPost->fill($newPostData);
         $newPost->user_id = $request->user()->id;
         $newPost->save();
 
-        $newPost->tags()->sync($newPostData['tags']);
+        if (isset($newPostData['tags'])) {
+            $newPost->tags()->sync($newPostData['tags']);
+        }
 
         return redirect()->route('admin.index');
     }
@@ -123,18 +135,21 @@ class PostController extends Controller
 
         ]);
 
-        if(key_exists("cover_url",$formData)){
-            if($post->cover_url){
+        if (key_exists("cover_url", $formData)) {
+            if ($post->cover_url) {
                 Storage::delete($post->cover_url);
             }
-        $storageImage = Storage::put("postCovers", $formData["cover_url"]);
+            $storageImage = Storage::put("postCovers", $formData["cover_url"]);
 
-        $formData["cover_url"] = $storageImage;
+            $formData["cover_url"] = $storageImage;
         }
 
         $post->update($formData);
 
-        $post->tags()->sync($formData['tags']);
+        if (isset($newPostData["cover_url"])) {
+            $storageImage = Storage::put("postCover", $newPostData["cover_url"]);
+            $newPostData["cover_url"] = $storageImage;
+        }
 
         $post->update($formData);
 
@@ -152,7 +167,7 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         $post->delete();
-        
+
         return redirect()->route("admin.index");
     }
 }
