@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -52,6 +53,8 @@ class PostController extends Controller
         $newPostData = $request->all();
 
         $newPost = new Post();
+        $storageImage = Storage::put("postCover", $newPostData["cover_url"]);
+        $newPostData["cover_url"] = $storageImage;
         $newPost->fill($newPostData);
         $newPost->user_id = $request->user()->id;
         $newPost->save();
@@ -119,6 +122,18 @@ class PostController extends Controller
             "title" => "max:255",
 
         ]);
+
+        if(key_exists("cover_url",$formData)){
+            if($post->cover_url){
+                Storage::delete($post->cover_url);
+            }
+        $storageImage = Storage::put("postCovers", $formData["cover_url"]);
+
+        $formData["cover_url"] = $storageImage;
+        }
+
+        $post->update($formData);
+
         $post->tags()->sync($formData['tags']);
 
         $post->update($formData);

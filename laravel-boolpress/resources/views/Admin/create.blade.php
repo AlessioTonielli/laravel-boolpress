@@ -12,7 +12,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <form action="{{ route("admin.store") }}" method="post">
+        <form action="{{ route("admin.store") }}" method="post" enctype="multipart/form-data">
 
             @csrf
 
@@ -41,16 +41,25 @@
 
                 </select>
                 <div class="form-control">
-                
-                @foreach($tags as $tag)
-                <label for="tag">
-                <input type="checkbox" name="tags[]" value="{{ $tag->id }}" >
-                {{ $tag->name }}
-                    
-                </label>
-                @endforeach
-                
+
+                    @foreach($tags as $tag)
+                    <label for="tag">
+                        <input type="checkbox" name="tags[]" value="{{ $tag->id }}">
+                        {{ $tag->name }}
+
+                    </label>
+                    @endforeach
+
                 </div>
+            </div>
+
+            <div class="form-group">
+
+                <label for="file">Img Post
+                    <input type="file" name="cover_url" class="form-control-life" id="file">
+                </label>
+
+
             </div>
 
             <div class="form-group">

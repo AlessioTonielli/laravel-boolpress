@@ -19,6 +19,9 @@
 
     <div class="row mb-2">
         <div class="col-12">
+        <div>
+        <img src="{{ $post->cover_url ? asset('storage/' . $post->cover_url) : ''}}" class="img-fluid rounded-start" alt="..." style="max-height:150px;width: 100%; object-fit: cover">
+        </div>
             <ul class="list-group">
                 <li class="list-group-item text-capitalize">Titolo: {{ $post->title }}</li>
                 <li class="list-group-item text-capitalize">Autore: {{ $post->user->name }}</li>

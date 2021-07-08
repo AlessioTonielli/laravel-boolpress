@@ -15,7 +15,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <form action="{{ route('admin.update', ['id' => $post->id])  }}" method="post">
+        <form action="{{ route('admin.update', ['id' => $post->id])  }}" method="post" enctype="multipart/form-data">
 
             @csrf
             @method('PUT')
@@ -47,6 +47,15 @@
                 {{ $tag->name }}
                 </label>
                 @endforeach
+
+                <div class="form-group">
+
+                <label for="file">Img Post
+                    <input type="file" name="cover_url" class="form-control-life" id="file">
+                </label>
+
+
+            </div>
 
                 <div class="form-group">
                     <input type="submit" value="Modifica" class="form-control btn btn-success text-capitalize">
