@@ -20,7 +20,9 @@
     <div class="row mb-2">
         <div class="col-12">
         <div>
+        @if(isset($post->cover_url))
         <img src="{{ $post->cover_url ? asset('storage/' . $post->cover_url) : ''}}" class="img-fluid rounded-start" alt="..." style="max-height:150px;width: 100%; object-fit: cover">
+        @endif
         </div>
             <ul class="list-group">
                 <li class="list-group-item text-capitalize">Titolo: {{ $post->title }}</li>
